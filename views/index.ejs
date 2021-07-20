@@ -22,19 +22,22 @@
           <li>
               <a href="/room">fitting room three</a>
           </li>
-          <!-- add your link to create a user here -->
-          <li>
-            <a href="/users/new">Create New User</a>
-          </li>
+        
           <!-- add your link to the log in page here -->   
-          <% if(currentUser === undefined) { %>       
+          <% if(currentUser === undefined) { %>      
+        
           <li>
             <a href="/sessions/login">Login</a>
           </li>
           <% } else {%>
           <!-- add your form button to log out here -->
+            <!-- add your link to create a user here -->
+            <li>
+              Welcome <%= currentUser.username %><br>
+              <a href="/users/new">Create New User</a>
+            </li> 
           <li>
-            Welcome <%= currentUser.username %>
+            
             <form action="/sessions?_method=DELETE" method="POST">
               <input type="submit" value="Log Out" />
             </form>

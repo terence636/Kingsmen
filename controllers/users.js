@@ -5,11 +5,21 @@ const router = express.Router();
 const User = require("../models/users.js")
 const bcrypt = require("bcrypt")
 
+const isAuthenticated = (req, res, next) => {
+    if (req.session.currentUser) {
+      return next();
+    } else {
+  
+    //   res.redirect("/sessions/notAuth");
+    res.render("sessions/notAuth.ejs");
+    }
+  };
+
 router.get("/",(req,res)=>{
     res.send("ALL USERS INDEX")
 })
 
-router.get("/new",(req,res)=>{
+router.get("/new",isAuthenticated,(req,res)=>{
     // res.send("USERS NEW PAGE")
     res.render("users/new.ejs",{})
 })
