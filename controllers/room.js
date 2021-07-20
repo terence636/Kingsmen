@@ -3,9 +3,19 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/users.js');
 
+const isAuthenticated = (req, res, next) => {
+  if (req.session.currentUser) {
+    return next();
+  } else {
+
+  //   res.redirect("/sessions/notAuth");
+  res.render("sessions/notAuth.ejs");
+  }
+};
+
 // ROUTES
 // get index
-router.get('/', (req, res) => {
+router.get('/', isAuthenticated,(req, res) => {
   // finds all users
   User.find({}, (err, foundUsers) => {
     // renders the room page
@@ -24,7 +34,7 @@ router.post ('/new', (req, res) => {
   User.findOneAndUpdate(
     {_id: req.session.currentUser._id},
     // uses $push method to push the req.body.message
-    { $push: { messages: req.body.message } },
+    { $push: { messages: req.session.currentUser.username + "-" + req.body.message } },
     // callback
     (err, foundUser) => {
       // redirects to the room page

@@ -8,10 +8,8 @@ const bcrypt = require("bcrypt")
 const isAuthenticated = (req, res, next) => {
     if (req.session.currentUser) {
       return next();
-    } else {
-  
-    //   res.redirect("/sessions/notAuth");
-    res.render("sessions/notAuth.ejs");
+    } else { 
+      res.redirect("/sessions/noAuth");
     }
   };
 

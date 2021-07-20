@@ -13,6 +13,11 @@ router.get("/login", (req, res) => {
   // res.send("users")
 });
 
+router.get("/noAuth", (req, res) => {
+    res.render("./sessions/notAuth.ejs", { currentUser: req.session.currentUser });
+    // res.send("users")
+  });
+
 router.delete("/", (req, res) => {
   req.session.destroy(() => {
     res.redirect("/");
